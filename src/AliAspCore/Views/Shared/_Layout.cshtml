@@ -1,0 +1,140 @@
+﻿<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Welcome to Explore Babylon</title>
+<meta name="description" content="A Project Asp.net Core">
+<meta name="keywords" content="html5, css3, lynda, local storage, canvas, forms, semantics, web apps">
+<!--make sure mobile devices display the page at the proper scale	-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<link href="/css/main.css" rel="stylesheet" type="text/css" media="screen, projection">
+    <script type="text/javascript" src="~/scripts/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="~/scripts/site.js"></script>
+</head>
+<body id="home" class="no-js">
+    <div id="wrapper">
+        <header id="mainHeader">
+            <a href="/" title="home" class="logo">
+                <!-- I need this div because IE is an affront to mankind-->
+                <div>
+                    <h1>Explore Babylon</h1>
+                </div>
+            </a>
+            <nav id="siteNav">
+                <h1>Where do you want to go?</h1>
+                <ul>
+                    <li>
+                        <a href="/tours.htm" title="Our tours">Tours <br /><span class="tagline">follow our bliss</span></a>
+                        <ul>
+                            <li><a href="/tours.htm" title="Our tours">All Tours</a></li>
+                            <li><a href="/tours.htm" title="find tours">Tours by Activity</a></li>
+                            <li><a href="/tours.htm" title="find tours">Tours by Region</a></li>
+                            <li><a href="/tours.htm" title="find tours">Tour Finder</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="mission.htm" title="What we believe">Mission <br /><span class="tagline">what makes us different?</span></a></li>
+                    
+                    <li>
+                        <a href="explorers.htm" title="Our community">Explorers <br /><span class="tagline">join our community</span></a>
+                        <ul>
+                            <li><a href="explorers/join.htm" title="join our community">Join the Explorers</a></li>
+                            <li><a href="@Url.Action("Index", "Blog")" title="read our blog!">Read our blog</a></li>
+                            <li><a href="explorers/gallery.htm" title="contributor photos">Tour Photos</a></li>
+                            <li><a href="_video/EC_podcast_full version.mov" title="check out our podcast">Video podcast</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <form id="logout" action="@Url.Action("Logout","Account")" method="POST">
+                                <a href="javascript: $('#logout').submit()" class="last">
+                                    Logout
+                                    <br /><span class="tagline">@User.Identity.Name</span>
+                                </a>
+                            </form>
+
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Login","Account")" title="Log in" class="last">Login</a>
+
+                        }
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <section id="actionCall">
+            @if (IsSectionDefined("header"))
+            {
+                @RenderSection("header", false)
+            }
+            else
+            {
+                <h1>Explore our world your way</h1>
+
+
+            }
+
+        </section>
+        <div id="contentWrapper">
+            <section id="mainContent">
+                @RenderBody()
+            </section>
+            <aside id="secondaryContent">
+                @if (IsSectionDefined("secondaryContent"))
+                {
+                    @RenderSection("secondaryContent", false)
+                }
+                else
+                {
+                    <div id="specials" class="callOut">
+                        @await (Component.InvokeAsync<AliAspCore.ViewComponents.MonthlySpecialsViewComponent>())
+                    </div>
+                    <div id="trivia" class="callOut">
+                        <h1>Did You Know?</h1>
+                        <p>It has been estimated that Babylon was the largest city in the world from c. 1770 to 1670 BC, and again between c. 612 and 320 BC.</p>
+                    </div>
+                }
+            </aside>
+        </div>
+        <footer id="pageFooter">
+            @*<section id="quickLinks">
+                <h1>Quick Nav</h1>
+                <ul id="quickNav">
+                    <li><a href="/" title="Our home page">Home</a></li>
+                    <li><a href="/tours.htm" title="Explore our tours">Tours</a></li>
+                    <li><a href="mission.htm" title="What we think">Mission</a></li>
+                    <li><a href="resources.htm" title="Guidance and planning">Resources</a></li>
+                    <li><a href="explorers.htm" title="Join our community">Explorers</a></li>
+                    <li><a href="contact.htm" title="Contact and support">Contact</a></li>
+                </ul>
+            </section>*@
+            <section id="footerResources">
+                <h1>Resources</h1>
+                <ul id="quickNav">
+                    <li><a href="resources/faq.htm" title="Our home page">FAQ</a></li>
+                    <li><a href="support.htm" title="Need help?">Support</a></li>
+                    <li><a href="resources/legal.htm" title="The fine print">Legal</a></li>
+                    <li><a href="login.htm">Login</a></li>
+                </ul>
+
+                <p>
+                    Copyright Ali Al-Bahrani @DateTime.Now.Year
+                </p>
+            </section>
+            <section id="companyInfo">
+                <h1>Contact</h1>
+                <h2>Explore babylon</h2>
+                <p>
+                    5544 Meadwocrest Ave.<br />
+                    Mississauga, Ontario
+                </p>
+                <p>416 123 1234<br />416 123 4567 <em>(24 hour support)</em></p>
+            </section>
+        </footer>
+    </div>
+</body>
+</html>
